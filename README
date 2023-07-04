@@ -43,11 +43,11 @@ By default, the script may not be able to reboot the server due to permissions. 
 
 Save and close the file. This will allow the user yourusername to run sudo reboot without having to enter a password, allowing the script to reboot the system when necessary.
 
-##Disclaimer
+#Disclaimer
 
 This script will cause your server to reboot if it can't connect to the specified server, regardless of the reason. If your internet connection is unstable or if the specified server goes down, your server may reboot frequently. Use this script with caution and test thoroughly before deploying to a production environment.
 
 
-##Support
+#Support
 
 Please open an issue for support.
