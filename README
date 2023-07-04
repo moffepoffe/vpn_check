@@ -1,0 +1,46 @@
+# VPN Connection Check and Auto-Reboot
+
+This project includes a script that checks the VPN connection every 10 minutes. If the VPN connection is lost, the script reboots the server.
+
+The script is designed to be run on a server running Ubuntu 20.04, and the instructions assume you are using this operating system.
+
+## Prerequisites
+
+- Ubuntu 20.04 server
+- The `netcat` package installed (use `sudo apt-get install netcat` to install)
+
+## Setup
+
+1. Clone this repository to your server.
+2. Edit the `vpn_check.sh` file to replace `google.com` with a reliable server you know should always be online.
+3. Make the script executable with the command `chmod +x vpn_check.sh`.
+
+## Usage
+
+To run the script manually in the background:
+
+```bash
+nohup /bin/bash /path/to/vpn_check.sh > /path/to/vpn_check.log 2>&1 &
+his command will run the script in the background, and output will be redirected to vpn_check.log.
+
+To set up the script to run on startup:
+
+    Open your crontab file by typing crontab -e in your terminal.
+    Add the following line to the end of the file:
+
+@reboot /bin/bash /path/to/vpn_check.sh > /path/to/vpn_check.log 2>&1
+Replace /path/to/vpn_check.sh and /path/to/vpn_check.log with the actual paths to the script and log file, respectively. This will run the script whenever your server reboots.
+Allowing Reboot Without Password
+
+By default, the script may not be able to reboot the server due to permissions. To allow the script to reboot the server without a password:
+
+    Run sudo visudo. This will open the sudoers file in your default text editor.
+    Add the following line at the end of the file, replacing yourusername with your actual username:
+    yourusername ALL=NOPASSWD: /sbin/reboot
+Save and close the file. This will allow the user yourusername to run sudo reboot without having to enter a password, allowing the script to reboot the system when necessary.
+Disclaimer
+
+This script will cause your server to reboot if it can't connect to the specified server, regardless of the reason. If your internet connection is unstable or if the specified server goes down, your server may reboot frequently. Use this script with caution and test thoroughly before deploying to a production environment.
+Support
+
+Please open an issue for support.
